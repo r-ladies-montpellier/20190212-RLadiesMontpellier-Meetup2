@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tidyverse exercises</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Cécile Sauder" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css/rladies-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my_theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+layout: true
+  
+&lt;div class="my-header"&gt;&lt;/div&gt;
+
+&lt;div class="my-footer"&gt;&lt;span&gt;Cécile SAUDER    
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+12/02/2019&lt;/span&gt;&lt;/div&gt; 
+---
+background-image: url(https://github.com/rstudio/hex-stickers/raw/master/SVG/tidyverse.svg?sanitize=true)
+background-size: 550px
+background-position: 50% 50%
+
+
+---
+
+background-image: url(https://github.com/rstudio/hex-stickers/raw/master/SVG/tidyverse.svg?sanitize=true)
+background-size: 100px
+background-position: 90% 3%
+
+# [www.tidyverse.org](www.tidyverse.org)
+
+
+
+
+```r
+#install.packages("tidyverse")
+
+library(tidyverse)
+```
+
+```
+## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+```
+
+```
+## ✔ ggplot2 3.0.0.9000     ✔ purrr   0.2.5     
+## ✔ tibble  1.4.2          ✔ dplyr   0.7.6     
+## ✔ tidyr   0.8.1          ✔ stringr 1.3.1     
+## ✔ readr   1.1.1          ✔ forcats 0.3.0
+```
+
+```
+## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+```
+  
+  
+&lt;br&gt; 
+  
+&lt;img src="img/tidyband.png" width="1147" /&gt;
+
+
+---
+
+
+# Data
+
+If you have your proper data you want to tidy, perfect, if not, I prepared you some exercises with the famous **gapminder** dataset.  
+I was inspired by [David Robinson's course](https://www.datacamp.com/courses/introduction-to-the-tidyverse) on DataCamp.
+
+1 - Install and load the gapminder package   
+2 - Look at the gapminder dataset
+
+--
+
+
+```r
+#install.packages(gapminder)
+library(gapminder)
+
+gapminder
+```
+
+```
+## # A tibble: 1,704 x 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.
+##  6 Afghanistan Asia       1977    38.4 14880372      786.
+##  7 Afghanistan Asia       1982    39.9 12881816      978.
+##  8 Afghanistan Asia       1987    40.8 13867957      852.
+##  9 Afghanistan Asia       1992    41.7 16317921      649.
+## 10 Afghanistan Asia       1997    41.8 22227415      635.
+## # ... with 1,694 more rows
+```
+
+---
+
+
+
+background-image: url(https://github.com/rstudio/hex-stickers/raw/master/SVG/pipe.svg?sanitize=true)
+background-size: 100px
+background-position: 90% 3%
+
+# Pipe data
+--
+
+.pull-left[
+
+- old way : **verb(subject, complements)**  
+
+
+```r
+head(gapminder,3)
+```
+
+.center[![](https://media.giphy.com/media/BgBf6pW9qOgQU/giphy.gif) ]
+
+]
+
+--
+
+- pipe way : **subject %&gt;% verb(complements)**
+
+
+```r
+gapminder %&gt;% head(3)
+```
+
+```
+## # A tibble: 3 x 6
+##   country     continent  year lifeExp      pop gdpPercap
+##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+## 1 Afghanistan Asia       1952    28.8  8425333      779.
+## 2 Afghanistan Asia       1957    30.3  9240934      821.
+## 3 Afghanistan Asia       1962    32.0 10267083      853.
+```
+
+.center[![](https://media.giphy.com/media/4pvW2P5L1GmkM/giphy.gif)]
+
+
+
+---
+
+
+# Thanks!
+
+- [Cheat sheets](https://www.rstudio.com/resources/cheatsheets/)
+
+
+.center[![](https://media.giphy.com/media/nEMmyUp4hl1QOzovKh/giphy.gif)]
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan) with the [**R-Ladies theme**](https://github.com/rladies/resources/blob/master/xaringan-slides/how_to_use.md)
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

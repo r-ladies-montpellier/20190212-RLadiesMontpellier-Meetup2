@@ -1,0 +1,41 @@
+div.my-header {
+    background-image: url(img/rladies.svg);
+    background-size: cover;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 50px;
+    width: 7%;
+    text-align: left;
+}
+
+div.my-footer {
+    background-color: #88398A;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 20px;
+    width: 100%;
+}
+div.my-footer span {
+    font-size: 10pt;
+    color: #D3D3D3;
+    position: absolute;
+    left: 15px;
+    bottom: 3px;
+}
+
+.remark-slide-number {
+  font-size: 10pt;
+  margin-bottom: -10px;
+  margin-right: 10px;
+  color: #D3D3D3; 
+  opacity: 1; /* default: 0.5 */
+}
+
+.remark-inline-code{
+  /* background: #F5F5F5; /* lighter */
+  background: #e7e8e2; /* darker */
+  border-radius: 3px;
+  padding: 4px;
+}

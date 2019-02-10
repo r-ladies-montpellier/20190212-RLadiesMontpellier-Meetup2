@@ -1,0 +1,131 @@
+---
+title: "Tidyverse exercises"
+subtitle: ""
+author: "Cécile Sauder"
+date: "2019/02/12"
+output:
+  xaringan::moon_reader:
+    css: ["default", "rladies", "rladies-fonts", "my_theme.css"]
+    lib_dir: libs
+    seal: FALSE
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+#options(crayon.enabled = TRUE)
+
+```
+
+
+layout: true
+  
+<div class="my-header"></div>
+
+<div class="my-footer"><span>Cécile SAUDER    
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+12/02/2019</span></div> 
+---
+background-image: url(https://github.com/rstudio/hex-stickers/raw/master/SVG/tidyverse.svg?sanitize=true)
+background-size: 550px
+background-position: 50% 50%
+
+
+---
+
+background-image: url(https://github.com/rstudio/hex-stickers/raw/master/SVG/tidyverse.svg?sanitize=true)
+background-size: 100px
+background-position: 90% 3%
+
+# [www.tidyverse.org](www.tidyverse.org)
+
+
+
+```{r}
+
+#install.packages("tidyverse")
+
+library(tidyverse)
+
+```
+  
+  
+<br> 
+  
+```{r, echo=FALSE}
+
+knitr::include_graphics("img/tidyband.png")
+```
+
+
+---
+
+
+# Data
+
+If you have your proper data you want to tidy, perfect, if not, I prepared you some exercises with the famous **gapminder** dataset.  
+I was inspired by [David Robinson's course](https://www.datacamp.com/courses/introduction-to-the-tidyverse) on DataCamp.
+
+1 - Install and load the gapminder package   
+2 - Look at the gapminder dataset
+
+--
+
+```{r}
+#install.packages(gapminder)
+library(gapminder)
+
+gapminder
+```
+
+---
+
+
+
+background-image: url(https://github.com/rstudio/hex-stickers/raw/master/SVG/pipe.svg?sanitize=true)
+background-size: 100px
+background-position: 90% 3%
+
+# Pipe data
+--
+
+.pull-left[
+
+- old way : **verb(subject, complements)**  
+
+```{r, eval=FALSE}
+head(gapminder,3)
+```
+
+.center[![](https://media.giphy.com/media/BgBf6pW9qOgQU/giphy.gif) ]
+
+]
+
+--
+
+- pipe way : **subject %>% verb(complements)**
+
+```{r}
+gapminder %>% head(3)
+```
+
+.center[![](https://media.giphy.com/media/4pvW2P5L1GmkM/giphy.gif)]
+
+
+
+---
+
+
+# Thanks!
+
+- [Cheat sheets](https://www.rstudio.com/resources/cheatsheets/)
+
+
+.center[![](https://media.giphy.com/media/nEMmyUp4hl1QOzovKh/giphy.gif)]
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan) with the [**R-Ladies theme**](https://github.com/rladies/resources/blob/master/xaringan-slides/how_to_use.md) 
+
