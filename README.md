@@ -3,7 +3,7 @@
 # Second meetup R-Ladies Montpellier: Let's code togetheR!
 
 - Presentation of version control, git and github by [Criscely Luján](https://github.com/CriscelyLP/RLadies-gitGithub).
-- Exercises about Tidyverse by [Cécile Sauder](https://github.com/r-ladies-montpellier/20190212-RLadiesMontpellier-Meetup2/tree/master/Tidyverse%20Exercises) [HTML version](https://cecilesauder.netlify.com/rladiesmeetups/meetup2_tidyverse_exercises/tidyverse_exercises#1)
+- Exercises about Tidyverse by [Cécile Sauder](https://github.com/r-ladies-montpellier/20190212-RLadiesMontpellier-Meetup2/tree/master/Tidyverse%20Exercises): [HTML version](https://cecilesauder.netlify.com/rladiesmeetups/meetup2_tidyverse_exercises/tidyverse_exercises#1)
 
 ## Details of the event:
 - Date: 12 Feb. 2019
