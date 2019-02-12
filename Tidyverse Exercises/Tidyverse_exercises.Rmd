@@ -69,7 +69,7 @@ knitr::include_graphics("img/tidyband.png")
 
 # Data
 
-If you have your proper data you want to tidy, perfect, if not, I prepared you some exercises with the famous **gapminder** dataset.  
+If you have your proper data you want to tidy, perfect, if not, I prepared you some exercises with the famous [**gapminder**](https://www.gapminder.org/videos/ted-us-state-department/) dataset.  
 I was inspired by [David Robinson's course](https://www.datacamp.com/courses/introduction-to-the-tidyverse) on DataCamp.
 
 1. Install and load the `tidyverse` `r emo::ji("package")` if it is not already done  
@@ -127,7 +127,7 @@ gapminder %>% head(3)
 1\. Filter the gapminder dataset for the year 2007
 --
 
- - Tip: Don't forget to use `==` for a condition  
+ - Hint: Don't forget to use `==` for a condition  
 
 --
 ```{r}
@@ -138,7 +138,7 @@ gapminder %>%
 2\. Filter the gapminder dataset for China and the year 2002
 --
 
- - Tip: and = `&`  
+ - Hint: and = `&`  
 
 --
 ```{r}
@@ -165,7 +165,7 @@ gapminder %>%
 
 --
 
- - Tip: `desc()`
+ - Hint: `desc()`
 
 --
 
@@ -197,11 +197,11 @@ and the other called `lifeExpMonths` with the life expectancy in months
 
 --
 
- - Tip1: `pop / 100000` , `lifeExp * 12`
+ - Hint1: `pop / 100000` , `lifeExp * 12`
 
 --
 
- - Tip2: you can create as many columns as you want in the same `mutate()`
+ - Hint2: you can create as many columns as you want in the same `mutate()`
  
 --
 ```{r}
@@ -221,7 +221,7 @@ superior or equal to one million
 
 --
 
- - Tip: use `if_else()`
+ - Hint: use `if_else()`
 
 --
 ```{r}
@@ -246,7 +246,7 @@ is inferior to 50, `middle` when `lifeExp` is between 50 and 70, and `old` when 
 
 --
 
- - Tip: for more than to cases, use `case_when()`
+ - Hint: for more than to cases, use `case_when()`
 
 --
 
@@ -272,7 +272,7 @@ gapminder %>%
 
 --
 
- - Tip: You can use `starts_with("c")` (but it's not the only solution)
+ - Hint: You can use `starts_with("c")` (but it's not the only solution)
 
 --
 
@@ -308,7 +308,7 @@ gapminder %>%
 
 --
 
- - Tip: You can use `select_if()`
+ - Hint: You can use `select_if()`
 
 --
 
@@ -365,14 +365,162 @@ gapminder %>%
 Now we have seen the basics of **Tidyverse**, let's continue with **ggplot2**. 
 
 Sometimes you know what plot you want, but sometimes you don't. 
-In that case we can take a look at the webpage [**R Graph Gallery**](https://www.r-graph-gallery.com/), or at [**ggplot2 extensions**](https://www.ggplot2-exts.org/gallery/), or, if, like me, you love interactive plots
+In that case we can take a look at the webpage [**R Graph Gallery**](https://www.r-graph-gallery.com/), or at [**ggplot2 extensions**](https://www.ggplot2-exts.org/gallery/), or, if, like me, you love interactive plots, the [**plotly**](https://plot.ly/r/) `r emo::ji("package")` is very cool.
 
 
 ---
 
 
-#
+#ggplot geom_boxplot
+
+1\. Make boxplots of `lifeExp` by `continent`
+
+--
+
+```{r, eval = FALSE}
+gapminder %>%
+  ggplot(aes(x = continent, y = lifeExp)) +
+  geom_boxplot()
+```
+
+--
+
+2\. Customize your plot 
+  - Reorder the boxplots with `forcats::fct_reorder`
+  - Color the boxplots with the `aes fill`
+  - Change the label axis with `labs()`
+  - `coord_flip` your plot
+  - Remove the legend
+
+  
+--
+
+```{r, eval = FALSE}
+p <- gapminder %>%
+  ggplot(aes(x = forcats::fct_reorder(continent, -lifeExp), 
+             y = lifeExp, 
+             fill = continent)) +
+  geom_boxplot() +
+  labs(x = "", y = "Life Expectancy") +
+  coord_flip() +
+  theme(legend.position = 'none')
+```
+
 ---
+
+
+#ggplot geom_boxplot + plotly
+
+```{r,  message = FALSE, eval=FALSE}
+library(plotly)
+ggplotly(p)
+```
+
+```{r, eval=FALSE, echo = FALSE}
+pg <- ggplotly(p)
+htmltools::save_html(pg, file="ggplotly.html")
+```
+
+<iframe src="ggplotly.html" width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"> </iframe>
+
+
+---
+
+
+#ggplot geom_point
+
+1\. Try to reproduce this plot 
+
+```{r, echo=FALSE, fig.height= 6, fig.width= 9}
+gapminder %>%
+  filter(year == 2002) %>%
+  ggplot(aes(gdpPercap, lifeExp, size = pop, colour = country)) +
+    geom_point(alpha = 0.7) +
+    scale_colour_manual(values = country_colors) +
+    scale_size(range = c(2, 12)) +
+    scale_x_log10() +
+    facet_wrap(~continent) +
+    theme(legend.position = 'none') +
+    labs(title = 'Year: 2002', x = 'GDP per capita', y = 'Life Expectancy')
+```
+
+---
+
+
+#ggplot
+
+Hints : 
+
+1\. Use the aes `size` and `color`
+
+--
+
+2\. Add `geom_point` with a transparancy parameter `alpha`
+
+--
+
+3\. Change x scale in log scale with `scale_x_log10`
+
+--
+
+4\. Adjust colors with `scale_colour_manual` and `country_colors`
+
+--
+
+5\. Adjust size points with `scale_size`
+
+--
+
+6\. Use `facet_wrap` to plot the continents separatly 
+
+---
+
+
+#ggplot
+
+Here is the complete code for the plot : 
+
+```{r, eval=FALSE}
+gapminder %>%
+  filter(year == 2002) %>%
+  ggplot(aes(gdpPercap, lifeExp, size = pop, colour = country)) +
+    geom_point(alpha = 0.7) +
+    scale_colour_manual(values = country_colors) +
+    scale_size(range = c(2, 12)) +
+    scale_x_log10() +
+    facet_wrap(~continent) +
+    theme(legend.position = 'none') +
+    labs(title = 'Year: 2002', x = 'GDP per capita', y = 'Life Expectancy')
+```
+
+---
+
+
+#gganimate your ggplot
+
+Now let's animate this ggplot by year. 
+
+It's the example of the [**gganimate**](https://github.com/thomasp85/gganimate/wiki/Gapminder) `r emo::ji("package")` by [Thomas Lin Pedersen](https://twitter.com/thomasp85). 
+
+It's very easy to animate your previous plot with **gganimate**:
+
+1\. Load the [**gganimate**](https://github.com/thomasp85/gganimate/wiki/Gapminder) `r emo::ji("package")`
+
+2\. Copy the code of your previous plot
+
+3\. Change `title = 'Year: 2002'` to `title = 'Year: {frame_time}'` 
+
+4\. Then add `+  transition_time(year)` 
+
+---
+
+
+#And TADAAAAAA
+
+.center[![](img/thomas.gif) ]
+
+---
+
 
 # Thanks!
 
