@@ -15,8 +15,10 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, results = 'hide')
 options(htmltools.dir.version = FALSE)
 #options(crayon.enabled = TRUE)
+library(emo)
 
 ```
 
@@ -70,12 +72,13 @@ knitr::include_graphics("img/tidyband.png")
 If you have your proper data you want to tidy, perfect, if not, I prepared you some exercises with the famous **gapminder** dataset.  
 I was inspired by [David Robinson's course](https://www.datacamp.com/courses/introduction-to-the-tidyverse) on DataCamp.
 
-1 - Install and load the gapminder package   
-2 - Look at the gapminder dataset
+1. Install and load the `tidyverse` `r emo::ji("package")` if it is not already done  
+2. Install and load the `gapminder` `r emo::ji("package")`   
+3. Look at the gapminder dataset
 
 --
 
-```{r}
+```{r, results='markup'}
 #install.packages(gapminder)
 library(gapminder)
 
@@ -91,13 +94,12 @@ background-size: 100px
 background-position: 90% 3%
 
 # Pipe data
---
 
 .pull-left[
 
 - old way : **verb(subject, complements)**  
 
-```{r, eval=FALSE}
+```{r}
 head(gapminder,3)
 ```
 
@@ -120,9 +122,263 @@ gapminder %>% head(3)
 ---
 
 
+# Filter
+
+1\. Filter the gapminder dataset for the year 2007
+--
+
+ - Tip: Don't forget to use `==` for a condition  
+
+--
+```{r}
+gapminder %>%
+  filter(year == 2007)
+```
+--
+2\. Filter the gapminder dataset for China and the year 2002
+--
+
+ - Tip: and = `&`  
+
+--
+```{r}
+gapminder %>%
+  filter(country == "China" & year == 2002)
+```
+---
+
+
+# Arrange
+
+1\. Arrange the gapminder dataset by ascending population (`pop`)
+
+--
+
+```{r}
+gapminder %>%
+  arrange(pop)
+```
+
+--
+
+2\. Arrange the gapminder dataset by descending population (`pop`)
+
+--
+
+ - Tip: `desc()`
+
+--
+
+```{r}
+gapminder %>%
+  arrange(desc(pop))
+```
+
+--
+
+3\. Filter gapminder for `France` and arrange by descending life expectancy`lifeExp`
+
+--
+
+```{r}
+gapminder %>%
+  filter(country == "France") %>%
+  arrange(desc(lifeExp))
+```
+
+
+---
+
+
+# Mutate
+
+1\. Create two new columns, one called `popMil` with the population in million
+and the other called `lifeExpMonths` with the life expectancy in months
+
+--
+
+ - Tip1: `pop / 100000` , `lifeExp * 12`
+
+--
+
+ - Tip2: you can create as many columns as you want in the same `mutate()`
+ 
+--
+```{r}
+gapminder %>%
+  mutate(popMil = pop / 1000000,
+         lifeExpMonths = lifeExp * 12)
+```
+
+---
+
+
+# Mutate 
+
+
+2\. Create a new colum `popUnderMillion` with 2 groups, one with `TRUE` when population `pop`is inferior to one million, and `FALSE` when  population is 
+superior or equal to one million
+
+--
+
+ - Tip: use `if_else()`
+
+--
+```{r}
+gapminder %>%
+  mutate(
+    popUnderMillion = if_else(
+      pop < 1000000, 
+      TRUE, 
+      FALSE
+    )
+  )
+```
+
+---
+
+
+# Mutate 
+
+
+3\. Create a new column `lifeExpGroup` with three groups, `young` for `lifeExp`
+is inferior to 50, `middle` when `lifeExp` is between 50 and 70, and `old` when it's superior to 70.
+
+--
+
+ - Tip: for more than to cases, use `case_when()`
+
+--
+
+```{r}
+gapminder %>%
+  mutate(
+    lifeExpGroup = case_when(
+      lifeExp < 50 ~ "young",
+      lifeExp >= 50 & lifeExp <= 70 ~ "middle",
+      lifeExp > 70 ~ "old",
+      TRUE ~ NA_character_
+    )
+  )
+
+```
+
+---
+
+
+# Select
+
+1\. Select the continents `continent` and the countries `country`
+
+--
+
+ - Tip: You can use `starts_with("c")` (but it's not the only solution)
+
+--
+
+```{r}
+gapminder %>%
+  select(starts_with("c"))
+```
+
+or
+
+```{r}
+gapminder %>%
+  select(continent, country)
+```
+
+--
+
+2\. Select all variables except life expectancy `lifeExp`
+
+--
+
+```{r}
+gapminder %>%
+  select(-lifeExp)
+```
+
+---
+
+
+# Select
+
+3\. Select all the numerical variables
+
+--
+
+ - Tip: You can use `select_if()`
+
+--
+
+```{r}
+gapminder %>%
+  select_if(is.numeric)
+```
+---
+
+
+# Summarise and group_by
+
+1\. Find the mean `avg_lifeExp`, the standard deviation `sd_lifeExp` and the number of values `n_values` of `lifeExp` by `continent`, then arrange the results by descending `avg_lifeExp`.
+
+--
+
+```{r}
+gapminder %>%
+  group_by(continent) %>%
+  summarise(
+    avg_lifeExp = mean(lifeExp),
+    sd_lifeExp = sd(lifeExp),
+    n_values = n()
+    ) %>%
+  arrange(desc(avg_lifeExp))
+```
+
+---
+
+
+# Summarise and group_by
+
+2\. Find the mean of all the numerical variables
+
+--
+
+```{r}
+gapminder %>%
+  group_by(continent) %>%
+  summarise(
+    avg_lifeExp = mean(lifeExp),
+    sd_lifeExp = sd(lifeExp),
+    n_values = n()
+    ) %>%
+  arrange(desc(avg_lifeExp))
+```
+
+
+---
+
+
+# ggplot
+
+Now we have seen the basics of **Tidyverse**, let's continue with **ggplot2**. 
+
+Sometimes you know what plot you want, but sometimes you don't. 
+In that case we can take a look at the webpage [**R Graph Gallery**](https://www.r-graph-gallery.com/), or at [**ggplot2 extensions**](https://www.ggplot2-exts.org/gallery/), or, if, like me, you love interactive plots
+
+
+---
+
+
+#
+---
+
 # Thanks!
 
-- [Cheat sheets](https://www.rstudio.com/resources/cheatsheets/)
+- [**Cheat sheets**](https://www.rstudio.com/resources/cheatsheets/)  
+- [**R Graph Gallery**](https://www.r-graph-gallery.com/) by [Yan Holtz](https://twitter.com/R_Graph_Gallery)
+- [**ggplot2 extensions**](https://www.ggplot2-exts.org/gallery/) by [Daniel Emaasit](https://twitter.com/emaasit)
 
 
 .center[![](https://media.giphy.com/media/nEMmyUp4hl1QOzovKh/giphy.gif)]
